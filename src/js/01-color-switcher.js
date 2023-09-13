@@ -15,7 +15,8 @@ startBtn.addEventListener('click', onStartBtnClick);
 function onStartBtnClick() {
   startBtn.disabled = true;
   stopBtn.disabled = false;
-  setTimeout(changeColor, 0);
+  changeColor();
+  // setTimeout(changeColor, 0);
   intervalId = setInterval(changeColor, 1000);
 }
 
