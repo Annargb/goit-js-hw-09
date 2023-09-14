@@ -17,7 +17,7 @@ const options = {
     // console.log(selectedDates[0]);
     // const differences = selectedDates[0] - options.defaultDate;
     // localStorage.setItem('differencesTime', differences);
-    localStorage.setItem('selectedDate', selectedDates[0]);
+    // localStorage.setItem('selectedDate', selectedDates[0]);
     if (selectedDates[0] < options.defaultDate) {
       alert('Please choose a date in the future');
     } else {
@@ -27,6 +27,8 @@ const options = {
 };
 
 const fp = flatpickr(input, options);
+console.log(fp);
+console.log(fp.selectedDates[0]);
 
 const timer = {
   days: document.querySelector('[data-days]'),
@@ -35,20 +37,29 @@ const timer = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-const selectedDate = new Date(localStorage.getItem('selectedDate'));
-const selectedSecondsDate = selectedDate.getTime();
-console.log(selectedSecondsDate);
+// const selectedDate = fp.selectedDates[0].getTime();
+// console.log(selectedDate);
+
+/////////
+// const selectedDate = new Date(localStorage.getItem('selectedDate'));
+
+// const selectedSecondsDate = selectedDate.getTime();
+// console.log(selectedSecondsDate);
 
 btnStart.addEventListener('click', onBtnStartClick);
 
 function onBtnStartClick() {
-  //   updateTime();
+  updateTime();
   id = setInterval(updateTime, 1000);
+  btnStart.disabled = true;
 }
 
 function updateTime() {
   const currentDate = Date.now();
-  let differences = selectedSecondsDate - currentDate - 1000;
+  const selectedDate = fp.selectedDates[0].getTime();
+  let differences = selectedDate - currentDate;
+  ///
+  // let differences = selectedSecondsDate - currentDate - 1000;
   if (differences > 0) {
     const timerTime = convertMs(differences);
 
